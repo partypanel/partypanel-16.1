@@ -1,0 +1,299 @@
+
+```{r specific-wave-specific-analyses-1, include=FALSE}
+safeRequire('data.tree');
+safeRequire('treemap');
+```
+
+<!-- ### Where participants expect a first-aid -->
+
+### Expected first-aid competence
+
+```{r specific-wave-specific-analyses-first-aid-competence}
+
+tmpPlot <- ggEasyBar(dat, grep('estimatedCompetenceL_', names(dat), value=TRUE),
+                     labels=labelDf[grep('estimatedCompetenceL_', labelDf$varNames.cln), 'subQuestions'],
+                     xlab=NULL, ylab=NULL,
+                     showInLegend="none", fontColor=NA) +
+             scale_y_continuous(breaks=seq(0, 100, 10)) +
+             theme(legend.position="none",
+                   text=element_text(size=26),
+                   plot.background = element_rect(fill = "transparent",
+                                                  color = NA),
+                   panel.grid = element_blank(),
+                   axis.ticks.x = element_line(size=1),
+                   axis.ticks.length=unit(1, 'line'));
+
+ggSave(plot=tmpPlot,
+       file.path(workingPath,
+                 "estimatedCompetenceL-ggEasyBar.png"),
+       width=16,
+       height=4,
+       bg = "transparent");
+
+knitFig(tmpPlot,
+        figWidth  = 16,
+        figHeight = 4,
+        figCaption = "estimatedCompetenceL-ggEasyBar");
+  
+tmpPlot <- ggEasyBar(dat, grep('estimatedCompetenceS_', names(dat), value=TRUE),
+                     labels=labelDf[grep('estimatedCompetenceS_', labelDf$varNames.cln), 'subQuestions'],
+                     xlab=NULL, ylab=NULL,
+                     showInLegend="none", fontColor=NA) +
+             scale_y_continuous(breaks=seq(0, 100, 10)) +
+             theme(legend.position="none",
+                   text=element_text(size=26),
+                   plot.background = element_rect(fill = "transparent",
+                                                  color = NA),
+                   panel.grid = element_blank(),
+                   axis.ticks.x = element_line(size=1),
+                   axis.ticks.length=unit(1, 'line'));
+
+ggSave(plot=tmpPlot,
+       file.path(workingPath,
+                 "estimatedCompetenceS-ggEasyBar.png"),
+       width=16,
+       height=4,
+       bg = "transparent");
+
+knitFig(tmpPlot,
+        figWidth  = 16,
+        figHeight = 4,
+        figCaption = "estimatedCompetenceS-ggEasyBar");
+
+```
+
+### Intention to visit the first aid
+
+```{r specific-wave-specific-analyses-2}
+
+dat$faFriendNoUse_intention <- ifelse(dat$faFriend_RandomSelect == "noUseMention",
+                                      dat$faFriend_intention,
+                                      NA);
+dat$faFriendOtherUsed_intention <- ifelse(dat$faFriend_RandomSelect == "otherUsed",
+                                          dat$faFriend_intention,
+                                          NA);
+dat$faFriendUsedSelf_intention <- ifelse(dat$faFriend_RandomSelect == "usedSelf",
+                                         dat$faFriend_intention,
+                                         NA);
+
+intentionVars <- grep('_intention', names(dat), value=TRUE);
+intentionVars <- grep('faFriend_intention', intentionVars, value=TRUE, invert=TRUE);
+
+tmpPlot <- 
+  meansDiamondPlot(dat,
+                   items=rev(intentionVars),
+                   labels=rev(c("... with a light complaint",
+                                "... with an alcohol-related complaint",
+                                "... with a substance-related complaint",
+                                "... if a friend doesn't feel well\nand substance use is not mentioned",
+                                "... if a friend doesn't feel well\nand that friend used a substance",
+                                "... if a friend doesn't feel well\nand the participant used a substance")),
+                   conf.level=.9999,
+                   xbreaks=1:7,
+                   generateColors = c("red", "green"),
+                   fullColorRange = c(1,7),
+                   xlab="Participants' intention scores and 99.99 confidence intervals for the means") +
+    labs(title="Intention to visit a nightlife first aid site in different situations",
+         caption="(1 = Absolutely not, 7 = Absolutely)");
+
+ggSave(plot=tmpPlot,
+       file.path(workingPath,
+                 "visitFirstAid_intention-diamondPlot-English.png"),
+       width=18,
+       height=8,
+       bg = "transparent");
+
+knitFig(tmpPlot,
+        figWidth=18,
+        figHeight=8,
+        figCaption = "visitFirstAid_intention-diamondPlot-English");
+
+tmpPlot <-
+  meansDiamondPlot(dat,
+                   items=rev(intentionVars),
+                   labels=rev(c("... met een lichte klacht",
+                                "... met een alcohol-gerelateerde klacht",
+                                "... met een drugs-gerelateerde klacht",
+                                "... als een vriend(in) zich niet goed voelt\nen middelengebruik niet wordt genoemd",
+                                "... als een vriend(in) zich niet goed voelt\nen drugs heeft gebruikt",
+                                "... als een vriend(in) zich niet goed voelt\nen de deelnemer drugs heeft gebruikt")),
+                   conf.level=.9999,
+                   xbreaks=1:7,
+                   generateColors = c("red", "green"),
+                   fullColorRange = c(1,7),
+                   xlab="Intenties en 99.99% betrouwbaarheidsintervallen voor de gemiddelden") +
+  labs(title="Intentie om de eerste hulp in het nachtleven te bezoeken",
+       caption="(1 = Absoluut niet, 7 = Absoluut)") +
+  theme(legend.position="none",
+                   text=element_text(size=26),
+                   plot.background = element_rect(fill = "transparent",
+                                                  color = NA));
+
+ggSave(plot=tmpPlot,
+       file.path(workingPath,
+                 "visitFirstAid_intention-diamondPlot-Dutch.png"),
+       width=18,
+       height=8,
+       bg = "transparent");
+
+knitFig(tmpPlot,
+        figWidth=18,
+        figHeight=8,
+        figCaption = "visitFirstAid_intention-diamondPlot-Dutch");
+
+```
+
+
+### Expected first-aid competence
+
+```{r specific-wave-specific-analyses-single-beliefs}
+
+tmpPlot <- ggEasyBar(dat, grep('AttExpect1_ruinsEvening', names(dat), value=TRUE),
+                     labels=c("Met een vriend(in)", "Met een lichte klacht", "Met een alcohol-klacht", "Met een drugs-klacht"),
+                     xlab=NULL, ylab=NULL,
+                     showInLegend="none", fontColor=NA) +
+             scale_y_continuous(breaks=seq(0, 100, 10)) +
+             theme(legend.position="none",
+                   text=element_text(size=26),
+                   plot.background = element_rect(fill = "transparent",
+                                                  color = NA),
+                   panel.grid = element_blank(),
+                   axis.ticks.x = element_line(size=1),
+                   axis.ticks.length=unit(1, 'line'));
+
+ggSave(plot=tmpPlot,
+       file.path(workingPath,
+                 "AttExpect1_ruinsEvening-ggEasyBar.png"),
+       width=16,
+       height=4,
+       bg = "transparent");
+
+knitFig(tmpPlot,
+        figWidth  = 16,
+        figHeight = 4,
+        figCaption = "AttExpect1_ruinsEvening-ggEasyBar");
+
+### labelDf[labelDf$varNames.cln == "faSelfSubstAttExpect2_accessToParty", ];
+
+tmpPlot <- ggEasyBar(dat, grep('accessToParty', names(dat), value=TRUE),
+                     labels=c("Met een vriend(in)", "Met een lichte klacht", "Met een alcohol-klacht", "Met een drugs-klacht"),
+                     xlab=NULL, ylab=NULL,
+                     showInLegend="none", fontColor=NA) +
+             scale_y_continuous(breaks=seq(0, 100, 10)) +
+             theme(legend.position="none",
+                   text=element_text(size=26),
+                   plot.background = element_rect(fill = "transparent",
+                                                  color = NA),
+                   panel.grid = element_blank(),
+                   axis.ticks.x = element_line(size=1),
+                   axis.ticks.length=unit(1, 'line'));
+
+ggSave(plot=tmpPlot,
+       file.path(workingPath,
+                 "accessToParty-ggEasyBar.png"),
+       width=16,
+       height=4,
+       bg = "transparent");
+
+knitFig(tmpPlot,
+        figWidth  = 16,
+        figHeight = 4,
+        figCaption = "accessToParty-ggEasyBar");
+
+
+  
+```
+
+### Entactogen preference ('deserted island' scenario)
+
+```{r specific-wave-specific-analyses-3, results='asis'}
+
+entactoFreqs <- freq(dat$entactogenPreference);
+
+pander(entactoFreqs);
+
+```
+
+`r cat0("So,", entactoFreqs$dat['none', 'Perc.Valid'], " percent prefers to bring nothing.");`
+
+```{r specific-wave-specific-analyses-4, fig.width=14, fig.height=10}
+
+entactoNamesRaw <- entactoFreqs$intermediate$categoryNames;
+entactoProportions <- entactoFreqs$intermediate$frequencies.prop.valid;
+
+entactoNames <- gsub('75', '075', entactoNamesRaw);
+entactoNames <- gsub('md(.*)', 'MDMA powder,\n\\1mg', entactoNames);
+entactoNames <- gsub('x(.*)', 'XTC pills,\n\\1mg', entactoNames);
+entactoNames <- gsub('fa(.*)', '4-FA,\n\\1mg', entactoNames);
+entactoNames <- ifelse(entactoNames=='none', 'z', entactoNames);
+
+entactoOrderFull <- order(entactoNames);
+
+entactoNames <- ifelse(entactoNames=='z', 'None', entactoNames);
+
+entactoNames <- paste0(entactoNames, " (", round(100*entactoProportions), "%)");
+
+#entactoOrder <- order(entactoNames);
+
+entactoNames <- entactoNames[entactoOrderFull];
+entactoProportions <- entactoProportions[entactoOrderFull];
+
+entactoDataframe <- data.frame(entactoNames, entactoProportions);
+
+entactoDataframe$Name <- gsub("(.*) \\(.*\\)", "\\1", entactoDataframe$entactoNames);
+entactoDataframe$Dose <- gsub("(.*) \\((.*)\\)", "\\2", entactoDataframe$entactoNames);
+entactoDataframe$SubstanceNr <- as.numeric(factor(entactoDataframe$Name));
+entactoDataframe$entactoOrder <- 1:nrow(entactoDataframe);
+
+entactoDataframe$pathString <- paste0("Substance/", entactoDataframe$Name, "/", entactoDataframe$Dose);
+#entactoDataframe
+
+entactoTree <- as.Node(entactoDataframe);
+
+entactoDataframe$color <-
+  c(rep("#2A5581", 4),
+    rep("#172F47", 4),
+    rep("#CBDDEE", 4),
+    "#999999");
+
+entactogenPref <-
+  treemap(entactoDataframe,
+         title="Preferences for XTC, MDMA powder, and 4-FA",
+         index='entactoNames',
+         vSize='entactoProportions',
+         vColor='color',
+         type='color',
+         algorithm='pivotSize',
+         sortID='entactoOrder',
+         fontsize.labels=35,
+         fontsize.title=40,
+         draw=TRUE);
+
+png(file.path(workingPath, "forced choice 4-fa treemap.png"),
+    type='cairo-png', height=1400, width=2000);
+entactogenPref;
+dev.off();
+
+```
+
+### Reasons for their 'desert island' preference
+
+Note that these are in Dutch.
+
+```{r specific-wave-specific-analyses-5, results='asis'}
+ 
+for (entactoPref in 1:length(entactoNamesRaw)) {
+  cat("\n\n##### ", gsub('\\n', ' ', entactoNames[entactoPref]),
+      "\n\n");
+  cat(paste0("- ", dat$entactoGenPrefWhy,
+             " `(intentions to use XTC=", dat$substUseIntention_xtc,
+             ", MDMA=", dat$substUseIntention_mdma,
+             ", 4-FA=", dat$substUseIntention_fourf,
+             "; use in past 6 months of XTC=", dat$substUseFreq_xtc,
+             ", MDMA=", dat$substUseFreq_mdma,
+             ", 4-FA=", dat$substUseFreq_fourfa,
+             ")` \n")[(dat$entactogenPreference == entactoNamesRaw[entactoOrderFull][entactoPref]) & !is.na(dat$entactoGenPrefWhy)]);
+}
+
+```
+

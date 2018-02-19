@@ -1,0 +1,68 @@
+```{r}
+###############################################################################
+### Note that this is the first wave-specific file that is processed, even
+### before the data file is loaded.
+###############################################################################
+
+### Variables using the 'special' frequency measurement question type
+frequencyVars <- c('goingOutFreq', 'substUseFreq', 'otherSubstFreq',
+                   'testingBehFreq');
+
+### Variables to rename
+waveSpecificVarnameRegExPairs <- list(c("^faFrnd(.+)", "faFriend\\1"),
+                                      c("^faSelfL(.+)", "faSelfLight\\1"),
+                                      c("^faSelfA(.+)", "faSelfAlc\\1"),
+                                      c("^faSelfS(.+)", "faSelfSubst\\1"),
+                                      c("fourf$", "fourfa"),
+                                      c("AttExpect_", "AttGeneral_"),
+                                      c('goingOutFreq_(.*)\\.0', "goingOutFreqPeriod_\\1"),
+                                      c('goingOutFreq_(.*)\\.1', "goingOutFreqNr_\\1_nr"),
+                                      c('substUsePastBeh_(.*)\\.0', "substUsePastBehPeriod_\\1"),
+                                      c('substUsePastBeh_(.*)\\.1', "substUsePastBehNr_\\1_nr"),
+                                      c('otherSubstancesFreq_(.*)\\.0', "otherSubstancesFreqPeriod_\\1"),
+                                      c('otherSubstancesFreq_(.*)\\.1', "otherSubstancesFreqNr_\\1_nr"));
+
+### Variables for which to check the class
+waveSpecificClassCheckRegexes <- list(c("goingOutFreqNr_(.*)_nr", "numeric"),
+                                      c("goingOutFreqPeriod_(.*)", "numeric"),
+                                      c("substUseFreqNr_(.*)_nr", "numeric"),
+                                      c("substUseFreqPeriod_(.*)", "numeric"),
+                                      c("otherSubstancesFreqNr_(.*)_nr", "numeric"),
+                                      c("otherSubstancesFreqPeriod_(.*)", "numeric"));
+
+### Overview of variables and how to visualise and analyse them
+### (regex, type, associations)
+waveSpecificVariableList <- list(visitedFirstAid = list(regex = "^visitedFirstAid$",
+                                                        type = "dichotomous",
+                                                        showFreq = TRUE,
+                                                        assoc = NULL,
+                                                        caption = "Whether participants ever visited the first aid themselves"));
+
+########################################################################
+### Text fragments
+########################################################################
+
+### Description of this wave
+waveSpecificDescription <- "It was developed to explore the determinants of visiting nightlife-based first aid venues.";
+
+waveSpecificConfidentiality <-
+  paste0("This document is confidential. It is illegal to copy or distribute it in any form. An embargo of 2 years rests upon all Party Panel datasets. The wave described in this document started on ",
+         startDate,
+         " and therefore, the dataset of this Party Panel wave will be released under CC-BY-NC-SA (see http://creativecommons.org/licenses/by-nc-sa/4.0/) on",
+         embargoLiftedDate,
+         ".");
+waveSpecificConfidentiality <-
+  paste0("The wave described in this document started on ",
+         startDate,
+         ", and therefore this document and the other Party Panel resources would normally be embargoed until ",
+         embargoLiftedDate,
+         ". However, the embargo was lifted at the 19th of february 2018. Therefore, all resources developed for this Party Panel wave as well as the collected data are available under CC-BY-NC-SA (see http://creativecommons.org/licenses/by-nc-sa/4.0/).");
+
+### Statement about the random numbers that were assigned
+waveSpecificRandomNumberStatement <- "Participants received two random numbers, both between (and including) 1 and 4. The value of these numbers, in combination with information participants provided, determined for which behaviors the determinants were measured. Specifically, all participants answered questions about visiting a nightlife first aid site in two different situations: when one had a complaint oneself, and with a friend who had a complaint. In each of these situations, the complaint could be a light complaint, an alcohol-related complaint, or a substance-related complaint. Regarding which type of complaint the questions were formulated depended on participants' alcohol- and substance use as well as these random numbers.
+
+Specifically, regarding visiting the first aid for themselves, participants who did not use alcohol or other substances always received questions about a light complaint. Participants who only used alcohol received questions about a light complaint if the first random number was 1, and about an alcohol-related complaint otherwise. Participants who only used other substances than alcohol received questions about light complaints if the first random number was 1, and about a substance-related complaint otherwise. Participants who used both alcohol and other substances received questions about light complaints if the first random number was 1, about alcohol-related complaints if the first random number was 2, and about substance-related complaints otherwise.
+
+Regarding visiting the first aid with a friend, participants who did not use alcohol or other substances, or who only used alcohol, received questions where nothing about substance use was mentioned if the second random number was 1 or 2, and questions about a situation where the other (i.e. the friend) had used drugs otherwise. Participants who did use other substances received questions about a situation where nothing was mentioned about substance use if the second random number was 1, questions about a situation where the other had used substances if the second random number was 2, and questions about a situation where the participant had used substances themselves if the second random number was 3 of 4.";
+
+```
