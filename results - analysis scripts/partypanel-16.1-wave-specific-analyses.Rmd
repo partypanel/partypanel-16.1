@@ -94,7 +94,11 @@ tmpPlot <-
                    fullColorRange = c(1,7),
                    xlab="Participants' intention scores and 99.99 confidence intervals for the means") +
     labs(title="Intention to visit a nightlife first aid site in different situations",
-         caption="(1 = Absolutely not, 7 = Absolutely)");
+         caption="(1 = Absolutely not, 7 = Absolutely)") +
+  theme(legend.position="none",
+        text=element_text(size=26),
+        plot.background = element_rect(fill = "transparent",
+                                       color = NA));
 
 ggSave(plot=tmpPlot,
        file.path(workingPath,
@@ -125,9 +129,9 @@ tmpPlot <-
   labs(title="Intentie om de eerste hulp in het nachtleven te bezoeken",
        caption="(1 = Absoluut niet, 7 = Absoluut)") +
   theme(legend.position="none",
-                   text=element_text(size=26),
-                   plot.background = element_rect(fill = "transparent",
-                                                  color = NA));
+        text=element_text(size=26),
+        plot.background = element_rect(fill = "transparent",
+                                       color = NA));
 
 ggSave(plot=tmpPlot,
        file.path(workingPath,
@@ -216,7 +220,7 @@ pander(entactoFreqs);
 
 `r cat0("So,", entactoFreqs$dat['none', 'Perc.Valid'], " percent prefers to bring nothing.");`
 
-```{r specific-wave-specific-analyses-4, fig.width=14, fig.height=10}
+```{r specific-wave-specific-analyses-4, fig.width=14, fig.height=10, warning=FALSE, message=FALSE, error=FALSE}
 
 entactoNamesRaw <- entactoFreqs$intermediate$categoryNames;
 entactoProportions <- entactoFreqs$intermediate$frequencies.prop.valid;
@@ -270,7 +274,7 @@ entactogenPref <-
          draw=TRUE);
 
 png(file.path(workingPath, "forced choice 4-fa treemap.png"),
-    type='cairo-png', height=1400, width=2000);
+   type='cairo-png', height=1400, width=2000);
 entactogenPref;
 dev.off();
 
