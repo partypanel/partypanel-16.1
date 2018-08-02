@@ -4,7 +4,7 @@
 .Ruserdata
 
 ### Reports - not exported because these are uploaded using FTP
-*.html
+results - reports/*.html
 
 ########################################################################
 ########################################################################
