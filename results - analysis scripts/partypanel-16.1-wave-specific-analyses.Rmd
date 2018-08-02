@@ -147,10 +147,9 @@ knitFig(tmpPlot,
 
 ```
 
+### Whether visiting the first aid ruins the evening
 
-### Expected first-aid competence
-
-```{r specific-wave-specific-analyses-single-beliefs}
+```{r specific-wave-specific-analyses-single-beliefs-1}
 
 tmpPlot <- ggEasyBar(dat, grep('AttExpect1_ruinsEvening', names(dat), value=TRUE),
                      labels=c("Met een vriend(in)", "Met een lichte klacht", "Met een alcohol-klacht", "Met een drugs-klacht"),
@@ -176,6 +175,12 @@ knitFig(tmpPlot,
         figWidth  = 16,
         figHeight = 4,
         figCaption = "AttExpect1_ruinsEvening-ggEasyBar");
+
+```
+
+### Whether access to the party is denied after visiting the first aid
+
+```{r specific-wave-specific-analyses-single-beliefs-2}
 
 ### labelDf[labelDf$varNames.cln == "faSelfSubstAttExpect2_accessToParty", ];
 
@@ -203,8 +208,6 @@ knitFig(tmpPlot,
         figWidth  = 16,
         figHeight = 4,
         figCaption = "accessToParty-ggEasyBar");
-
-
   
 ```
 
@@ -218,9 +221,9 @@ pander(entactoFreqs);
 
 ```
 
-`r cat0("So,", entactoFreqs$dat['none', 'Perc.Valid'], " percent prefers to bring nothing.");`
+`r paste0("So,", entactoFreqs$dat['none', 'Perc.Valid'], " percent prefers to bring nothing.");`
 
-```{r specific-wave-specific-analyses-4, fig.width=14, fig.height=10, warning=FALSE, message=FALSE, error=FALSE}
+```{r specific-wave-specific-analyses-4, fig.width=14, fig.height=10, fig.cap="Treemap of entactogen preferences", warning=FALSE, message=FALSE, error=FALSE}
 
 entactoNamesRaw <- entactoFreqs$intermediate$categoryNames;
 entactoProportions <- entactoFreqs$intermediate$frequencies.prop.valid;
@@ -260,22 +263,31 @@ entactoDataframe$color <-
     rep("#CBDDEE", 4),
     "#999999");
 
-entactogenPref <-
-  treemap(entactoDataframe,
-         title="Preferences for XTC, MDMA powder, and 4-FA",
-         index='entactoNames',
-         vSize='entactoProportions',
-         vColor='color',
-         type='color',
-         algorithm='pivotSize',
-         sortID='entactoOrder',
-         fontsize.labels=35,
-         fontsize.title=40,
-         draw=TRUE);
+treemap(entactoDataframe,
+        title="Preferences for XTC, MDMA powder, and 4-FA",
+        index='entactoNames',
+        vSize='entactoProportions',
+        vColor='color',
+        type='color',
+        algorithm='pivotSize',
+        sortID='entactoOrder',
+        fontsize.labels=35,
+        fontsize.title=40,
+        draw=TRUE);
 
 png(file.path(workingPath, "forced choice 4-fa treemap.png"),
    type='cairo-png', height=1400, width=2000);
-entactogenPref;
+treemap(entactoDataframe,
+        title="Preferences for XTC, MDMA powder, and 4-FA",
+        index='entactoNames',
+        vSize='entactoProportions',
+        vColor='color',
+        type='color',
+        algorithm='pivotSize',
+        sortID='entactoOrder',
+        fontsize.labels=35,
+        fontsize.title=40,
+        draw=TRUE);
 dev.off();
 
 ```

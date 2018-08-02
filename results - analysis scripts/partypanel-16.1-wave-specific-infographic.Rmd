@@ -1,0 +1,25 @@
+
+### Past first aid visits
+
+How many of the Party Panel participants in this sample have ever visited the first aid in a nightlife setting?
+
+```{r wave-specific-infographic-content-first-aid-freq-1}
+
+knitr::kable(freq(dat$visitedFirstAid)$dat);
+
+```
+
+```{r wave-specific-infographic-content-first-aid-freq-2}
+
+table(dat$visitedFirstAidFreq);
+
+```
+
+### Intention to visit the first aid with different types of complaints
+
+```{r wave-specific-infographic-content-first-aid-intention}
+
+meansDiamondPlot(dat, items=grep("_intention", names(dat), value=TRUE),
+                 decreasing=FALSE);
+
+```

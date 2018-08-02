@@ -32,11 +32,107 @@ waveSpecificClassCheckRegexes <- list(c("goingOutFreqNr_(.*)_nr", "numeric"),
 
 ### Overview of variables and how to visualise and analyse them
 ### (regex, type, associations)
-waveSpecificVariableList <- list(visitedFirstAid = list(regex = "^visitedFirstAid$",
-                                                        type = "dichotomous",
-                                                        showFreq = TRUE,
-                                                        assoc = NULL,
-                                                        caption = "Whether participants ever visited the first aid themselves"));
+waveSpecificVariableList <-
+  list(visitedFirstAid = list(regex = "^visitedFirstAid$",
+                              type = "dichotomous",
+                              showFreq = TRUE,
+                              assoc = NULL,
+                              caption = "Whether participants ever visited the first aid themselves"),
+       
+       visitedFirstAidFreq = list(regex = "visitedFirstAidFreq_\\w+comment_nr",   ### Regex to match one or more variables
+                                  type = "array",           ### Dichotomous, multi, open, array
+                                  showFreq = TRUE,          ### Frequencies
+                                  showDiamondPlot=TRUE,     ### Diamond plots
+                                  showBarPlot=TRUE,        ### EasyBar plot
+                                  showPropPlot=TRUE,        ### Plot with proportions
+                                  showRidgelinePlot=TRUE,   ### Ridgeline plots
+                                  plotWidthMultiplier=2,    ### For especially narrow or wide plots
+                                  assoc = NULL,             ### With which variables to show associations);
+                                  caption="How often participants visited the first aid for different venue types"),
+       
+       firstAidReasons = list(regex = "firstAidReasons_[^o].*",   ### Regex to match one or more variables
+                              type = "array",           ### Dichotomous, multi, open, array
+                              showFreq = TRUE,          ### Frequencies
+                              showDiamondPlot=FALSE,     ### Diamond plots
+                              showBarPlot=TRUE,        ### EasyBar plot
+                              showPropPlot=TRUE,        ### Plot with proportions
+                              showRidgelinePlot=FALSE,   ### Ridgeline plots
+                              plotWidthMultiplier=1,    ### For especially narrow or wide plots
+                              assoc = NULL,             ### With which variables to show associations);
+                              caption="Why did participants visit the first aid"),
+       
+       faExperiences = list(regex = "faExperiences_.*",   ### Regex to match one or more variables
+                            type = "array",           ### Dichotomous, multi, open, array
+                            showFreq = TRUE,          ### Frequencies
+                            showDiamondPlot=TRUE,     ### Diamond plots
+                            showBarPlot=TRUE,        ### EasyBar plot
+                            showPropPlot=FALSE,        ### Plot with proportions
+                            showRidgelinePlot=TRUE,   ### Ridgeline plots
+                            plotWidthMultiplier=1.5,    ### For especially narrow or wide plots
+                            assoc = NULL,             ### With which variables to show associations);
+                            caption="Participants' experiences with the first aid"),
+       
+       #dat$faExperiencesOpen
+       
+       faPerceivedStigma = list(regex = "faPerceivedStigma_.*",   ### Regex to match one or more variables
+                                type = "array",           ### Dichotomous, multi, open, array
+                                showFreq = TRUE,          ### Frequencies
+                                showDiamondPlot=TRUE,     ### Diamond plots
+                                showBarPlot=FALSE,        ### EasyBar plot
+                                showPropPlot=FALSE,        ### Plot with proportions
+                                showRidgelinePlot=TRUE,   ### Ridgeline plots
+                                plotWidthMultiplier=1,    ### For especially narrow or wide plots
+                                assoc = NULL,             ### With which variables to show associations);
+                                caption="What do these groups generally think about substance use ('very disapproving' vs 'very approving')"),
+
+       faGeneralBeliefs = list(regex = "faGeneralBeliefs_.*",   ### Regex to match one or more variables
+                               type = "array",           ### Dichotomous, multi, open, array
+                               showFreq = TRUE,          ### Frequencies
+                               showDiamondPlot=TRUE,     ### Diamond plots
+                               showBarPlot=FALSE,        ### EasyBar plot
+                               showPropPlot=FALSE,        ### Plot with proportions
+                               showRidgelinePlot=TRUE,   ### Ridgeline plots
+                               plotWidthMultiplier=2,    ### For especially narrow or wide plots
+                               assoc = NULL,             ### With which variables to show associations);
+                               caption="General first aid-related beliefs"),
+
+       faGeneralBeliefs = list(regex = "faGeneralBeliefs_.*",   ### Regex to match one or more variables
+                               type = "array",           ### Dichotomous, multi, open, array
+                               showFreq = TRUE,          ### Frequencies
+                               showDiamondPlot=TRUE,     ### Diamond plots
+                               showBarPlot=TRUE,        ### EasyBar plot
+                               showPropPlot=FALSE,        ### Plot with proportions
+                               showRidgelinePlot=TRUE,   ### Ridgeline plots
+                               plotWidthMultiplier=2,    ### For especially narrow or wide plots
+                               assoc = NULL,             ### With which variables to show associations);
+                               caption="General first aid-related beliefs"),
+
+       faExpectations = list(regex = "faExpectations_.*",   ### Regex to match one or more variables
+                             type = "array",           ### Dichotomous, multi, open, array
+                             showFreq = TRUE,          ### Frequencies
+                             showDiamondPlot=TRUE,     ### Diamond plots
+                             showBarPlot=TRUE,        ### EasyBar plot
+                             showPropPlot=FALSE,        ### Plot with proportions
+                             showRidgelinePlot=TRUE,   ### Ridgeline plots
+                             plotWidthMultiplier=1.5,    ### For especially narrow or wide plots
+                             assoc = NULL,             ### With which variables to show associations);
+                             caption="Where do people expect a first aid to be present?"),
+
+       faLocations = list(regex = "knowsFAlocations_.*",   ### Regex to match one or more variables
+                          type = "array",           ### Dichotomous, multi, open, array
+                          showFreq = TRUE,          ### Frequencies
+                          showDiamondPlot=TRUE,     ### Diamond plots
+                          showBarPlot=TRUE,        ### EasyBar plot
+                          showPropPlot=FALSE,        ### Plot with proportions
+                          showRidgelinePlot=TRUE,   ### Ridgeline plots
+                          plotWidthMultiplier=1.5,    ### For especially narrow or wide plots
+                          assoc = NULL,             ### With which variables to show associations);
+                          caption="When they are at these locations, do participants know where to find the first aid?"),
+       
+       delete = NULL); ### Final element to enable easy copy/pasting above
+
+waveSpecificVariableList <-
+  waveSpecificVariableList[names(waveSpecificVariableList) != 'delete'];
 
 ########################################################################
 ### Text fragments
