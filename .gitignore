@@ -3,6 +3,9 @@
 .RData
 .Ruserdata
 
+### Reports - not exported because these are uploaded using FTP
+*.html
+
 ########################################################################
 ########################################################################
 ###
@@ -18,9 +21,6 @@
 
 ### Data
 #*.csv
-
-### Reports
-#*.html
 
 ### Survey etc
 #*.lss
