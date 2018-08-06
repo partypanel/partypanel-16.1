@@ -36,6 +36,7 @@ waveSpecificVariableList <-
   list(visitedFirstAid = list(regex = "^visitedFirstAid$",
                               type = "dichotomous",
                               showFreq = TRUE,
+                              showPropPlot=TRUE,        ### Plot with proportions
                               assoc = NULL,
                               caption = "Whether participants ever visited the first aid themselves"),
        
@@ -44,7 +45,7 @@ waveSpecificVariableList <-
                                   showFreq = TRUE,          ### Frequencies
                                   showDiamondPlot=TRUE,     ### Diamond plots
                                   showBarPlot=TRUE,        ### EasyBar plot
-                                  showPropPlot=TRUE,        ### Plot with proportions
+                                  showPropPlot=FALSE,        ### Plot with proportions
                                   showRidgelinePlot=TRUE,   ### Ridgeline plots
                                   plotWidthMultiplier=2,    ### For especially narrow or wide plots
                                   assoc = NULL,             ### With which variables to show associations);
@@ -55,7 +56,7 @@ waveSpecificVariableList <-
                               showFreq = TRUE,          ### Frequencies
                               showDiamondPlot=FALSE,     ### Diamond plots
                               showBarPlot=TRUE,        ### EasyBar plot
-                              showPropPlot=TRUE,        ### Plot with proportions
+                              showPropPlot=FALSE,        ### Plot with proportions
                               showRidgelinePlot=FALSE,   ### Ridgeline plots
                               plotWidthMultiplier=1,    ### For especially narrow or wide plots
                               assoc = NULL,             ### With which variables to show associations);

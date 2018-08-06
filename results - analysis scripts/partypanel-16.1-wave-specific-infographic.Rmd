@@ -5,7 +5,7 @@ How many of the Party Panel participants in this sample have ever visited the fi
 
 ```{r wave-specific-infographic-content-first-aid-freq-1}
 
-knitr::kable(freq(dat$visitedFirstAid)$dat);
+knitr::kable(userfriendlyscience::freq(dat$visitedFirstAid)$dat);
 
 ```
 

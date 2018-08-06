@@ -215,7 +215,7 @@ knitFig(tmpPlot,
 
 ```{r specific-wave-specific-analyses-3, results='asis'}
 
-entactoFreqs <- freq(dat$entactogenPreference);
+entactoFreqs <- userfriendlyscience::freq(dat$entactogenPreference);
 
 pander(entactoFreqs);
 
